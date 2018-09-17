@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="PE文件格式"><meta name="keywords" content="PE format"><meta name="author" content="zgzhong,undefined"><meta name="copyright" content="zgzhong"><title>PE文件格式 | Pluviophile's Blog</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Structure-at-a-glance"><span class="toc-number">1.</span> <span class="toc-text">Structure at a glance</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PE-文件结构详解"><span class="toc-number">2.</span> <span class="toc-text">PE 文件结构详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DOS-header-amp-DOS-stub"><span class="toc-number">2.1.</span> <span class="toc-text">DOS-header &amp; DOS-stub</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PE-header"><span class="toc-number">2.2.</span> <span class="toc-text">PE-header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FileHeader"><span class="toc-number">2.3.</span> <span class="toc-text">FileHeader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optional-Header"><span class="toc-number">2.4.</span> <span class="toc-text">Optional Header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Section-Table"><span class="toc-number">2.5.</span> <span class="toc-text">Section Table</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Import-Table"><span class="toc-number">2.6.</span> <span class="toc-text">Import Table</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.imgur.com/3Q8dIiP.jpg?1"></div><div class="author-info__name text-center">zgzhong</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/Lisupy" target="_blank">Follow me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">6</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">9</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">4</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.imgur.com/DBI8I6q.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Pluviophile's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Posts</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">PE文件格式</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-09-17</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/security/">security</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>Microsoft Windows Portable Executable是微软可迁移可执行软件的全称，简称PE文件。这篇文章是关于PE文件格式的学习总结<br><a id="more"></a><br>对PE文件结构的学习虽然并不是程序员必须学的，但是学习对PE文件结构的学习过程中能够提升我们的个人编程能力，从中学到很多东西。而对PE文件的详细学习对我们在安全、病毒检测的工作有很大的帮助。</p>
+<h1 id="Structure-at-a-glance"><a href="#Structure-at-a-glance" class="headerlink" title="Structure at a glance"></a>Structure at a glance</h1><p>PE文件的结构如下表所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">+-------------------+</span><br><span class="line">| DOS MZ header     |</span><br><span class="line">+-------------------+</span><br><span class="line">| DOS-stub          |</span><br><span class="line">+-------------------+</span><br><span class="line">| file-header       |</span><br><span class="line">+-------------------+</span><br><span class="line">| optional header   |</span><br><span class="line">|- - - - - - - - - -|</span><br><span class="line">|                   |</span><br><span class="line">| data directories  |</span><br><span class="line">|                   |</span><br><span class="line">+-------------------+</span><br><span class="line">|                   |</span><br><span class="line">| section headers   |</span><br><span class="line">|                   |</span><br><span class="line">+-------------------+</span><br><span class="line">|                   |</span><br><span class="line">| section 1         |</span><br><span class="line">|                   |</span><br><span class="line">+-------------------+</span><br><span class="line">|                   |</span><br><span class="line">| section 2         |</span><br><span class="line">|                   |</span><br><span class="line">+-------------------+</span><br><span class="line">|                   |</span><br><span class="line">| ...               |</span><br><span class="line">|                   |</span><br><span class="line">+-------------------+</span><br><span class="line">|                   |</span><br><span class="line">| section n         |</span><br><span class="line">|                   |</span><br><span class="line">+-------------------+</span><br></pre></td></tr></table></figure></p>
+<h1 id="PE-文件结构详解"><a href="#PE-文件结构详解" class="headerlink" title="PE 文件结构详解"></a>PE 文件结构详解</h1><h2 id="DOS-header-amp-DOS-stub"><a href="#DOS-header-amp-DOS-stub" class="headerlink" title="DOS-header &amp; DOS-stub"></a>DOS-header &amp; DOS-stub</h2><p>所有的PE文件都是由一个简单<code>DOS MZ header</code>头开始，后面紧跟着一个<code>DOS-stub</code>。这么做的目的是为了向后兼容性。当全世界在从DOS到Win32转变时<br>为了DOS的向后兼容性，引入了这两个区域在PE文件的开头。<code>DOS MZ header</code>和<code>DOS-stub</code>是用来兼容DOS运行环境的。当DOS看到这个头时，便知道这是一个可执行文件，接着DOS便会紧接着运行<code>DOS-stub</code>的内容，<code>DOS-stub</code>实际上就是一个EXE文件。在那个时候，有一些程序将DOS版本和Win32版本整合到一个PE文件中，具体的做法就是在<code>DOS-stub</code>中存放DOS版本的程序。现在的<code>DOS-stub</code>中的内容仅仅只是一句话 <strong>“This program cannot run in DOS mode”</strong>，现在<code>DOS-stub</code>这个块的内容已经很少被关注。为并且有一些<a href="https://sites.google.com/site/delphibasics/home/delphibasicssnippets/wipedosstub-removedosheaderfrompe" target="_blank" rel="noopener">工作</a>试图将<code>DOS-stub</code>块删除。下图显示的是分析<a href="https://rufus.akeo.ie/downloads/rufus-3.1p.exe" target="_blank" rel="noopener">rufus</a>程序的<code>DOS-header</code>和<code>DOS-stub</code>截图</p>
+<p><img src="https://i.imgur.com/EAUvvqP.png" alt="Imgur"><br>其中在<code>DOS-header</code>的最后一个字给出了PE-header的偏移量(0x00000080)。根据这个就能够找到PE-header。即PE文件中最重要的部分。</p>
+<h2 id="PE-header"><a href="#PE-header" class="headerlink" title="PE-header"></a>PE-header</h2><p>PE-header是PE文件的核心内容，PE-header中包含了PE加载程序需要的许多字段。PE-header实际上是一个名为<code>IMAGE_NT_HEADERS</code>的结构体。结构体的定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IMAGE_NT_HEADERS STRUCT </span><br><span class="line">   Signature dd ? </span><br><span class="line">   FileHeader IMAGE_FILE_HEADER &lt;&gt; </span><br><span class="line">   OptionalHeader IMAGE_OPTIONAL_HEADER32 &lt;&gt; </span><br><span class="line">IMAGE_NT_HEADERS ENDS</span><br></pre></td></tr></table></figure></p>
+<p>字段含义：</p>
+<ul>
+<li>Signature：PE-header的签名是一个魔数(0x00004550)，转换成文本就是”PE”。该成员是PE签名，因此我们将使用它来验证给定文件是否是有效的PE文件。</li>
+<li>FileHeader：FileHeader包含的是PE的物理布局信息（physical layout）例如Section的数量，PE文件所针对的机器等。</li>
+<li>OptionalHeader：虽然说这个头部是可选的（Optional）,但是在所有的PE文件中都有出现。</li>
+</ul>
+<p><img src="https://i.imgur.com/4rwn9IU.png" alt="Imgur"></p>
+<blockquote>
+<p>微软定义了几个常量用来作为MZ头和PE头的签名,其中<em>IMAGE_DOS_SIGNATURE</em>是DOS头签名，<em>IMAGE_NT_SIGNATURE</em>是PE头签名<br><strong><code>IMAGE_DOS_SIGNATURE equ 5A4Dh</code></strong><br><code>IMAGE_OS2_SIGNATURE equ 454Eh</code><br><code>IMAGE_OS2_SIGNATURE_LE equ 454Ch</code><br><code>IMAGE_VXD_SIGNATURE equ 454Ch</code><br><strong><code>IMAGE_NT_SIGNATURE equ 4550h</code></strong></p>
+</blockquote>
+<p>所以，为了验证一个PE文件是否是有效的，只需要知道PE-header前两个字节是不是等于0x4550就能够知道是不是合法的PE文件。验证一个文件是不是合法的PE文件，步骤如下所示：</p>
+<ol>
+<li>比较一个给定的文件是否有MZ头。</li>
+<li>如果包含了MZ头，使用MZ头的<code>e_lfanew</code>成员，查找PE-header的位置，<code>e_lfanew</code>在<strong>0x3C</strong>地址上。</li>
+<li>将PE-header的第一第二个字节和<code>IMAGE_NT_SIGNATURE</code>进行对比，如果相等，则证明是有效的PE文件。</li>
+</ol>
+<h2 id="FileHeader"><a href="#FileHeader" class="headerlink" title="FileHeader"></a>FileHeader</h2><p>FileHeader是PE-header 中的一个结构体，虽然我们最感兴趣的部分在于OptionalHeader中，但是FileHeader也包含了一些重要的字段，对FileHeader的定义如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">IMAGE_FILE_HEADER STRUCT </span><br><span class="line">    Machine WORD ? </span><br><span class="line">    NumberOfSections WORD ? </span><br><span class="line">    TimeDateStamp dd ? </span><br><span class="line">    PointerToSymbolTable dd ? </span><br><span class="line">    NumberOfSymbols dd ? </span><br><span class="line">    SizeOfOptionalHeader WORD ? </span><br><span class="line">    Characteristics WORD ? </span><br><span class="line">IMAGE_FILE_HEADER ENDS</span><br></pre></td></tr></table></figure></p>
+<p>下表将表示各个字段的意思</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段名</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Machine</td>
+<td style="text-align:center">PE文件所针对的CPU平台。</td>
+</tr>
+<tr>
+<td style="text-align:center">NumberOfSections</td>
+<td style="text-align:center">PE文件中Section的数量</td>
+</tr>
+<tr>
+<td style="text-align:center">TimeDateStamp</td>
+<td style="text-align:center">PE文件创建的时间，基本没什么用</td>
+</tr>
+<tr>
+<td style="text-align:center">PointerToSymbolTable</td>
+<td style="text-align:center">DEBUG 用途</td>
+</tr>
+<tr>
+<td style="text-align:center">NumberOfSymbols</td>
+<td style="text-align:center">DEBUG 用途</td>
+</tr>
+<tr>
+<td style="text-align:center">SizeOfOptionalHeader</td>
+<td style="text-align:center"><code>OptionalHeader</code>的大小</td>
+</tr>
+<tr>
+<td style="text-align:center">Characteristics</td>
+<td style="text-align:center">包含文件的标识，例如这个文件是dll还是exe</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Optional-Header"><a href="#Optional-Header" class="headerlink" title="Optional Header"></a>Optional Header</h2><p>虽说<code>Optional Header</code> 名称中含有Optional字样，但是却是PE header中最大、最重要的一个部分。<code>Optional Header</code>是<code>IMAGE_NT_HEADERS</code>结构体中的最后一个元素，包含了PE文件的逻辑内容。在<code>OptionalHeader</code>中有31个字段，其中某些字段对我们十分有用。在<code>Optional Header</code>中存储的位置，都是RVA。关于RVA的详细内容，参考这篇<a href=":note:717edc93-ff97-4556-810c-2cf2a422a105">笔记</a>(TODO:链接暂时失效)</p>
+<p>下面列举在Optional Header中对我们比较有用的字段：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段名</th>
+<th style="text-align:left">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">AddressOfEntryPoint</td>
+<td style="text-align:left">这个字段存储的是PE文件加载到内存后第一个执行命令的RVA。如果想要从开始就改变PE文件的执行顺序，就可以修改这一个字段。</td>
+</tr>
+<tr>
+<td style="text-align:center">ImageBase</td>
+<td style="text-align:left">PE文件加载的首选的RVA。假如这个值是<strong>0x400000h</strong>那么PE-loader将在该虚拟地址没有被占用的情况下，将映像文件加载到<strong>0x400000h</strong>地址上。</td>
+</tr>
+<tr>
+<td style="text-align:center">SizeOfImage</td>
+<td style="text-align:left">PE映像在内存中的大小。</td>
+</tr>
+</tbody>
+</table>
+<p>还有其他的字段信息，可以查看<a href="http://win32assembly.programminghorizon.com/pe-tut4.html" target="_blank" rel="noopener">这个教程</a></p>
+<h2 id="Section-Table"><a href="#Section-Table" class="headerlink" title="Section Table"></a>Section Table</h2><p>Section Table是一个跟在PE header后的数组。该数组的长度由<code>IMAGE_FILE_HEADER</code>中的<code>NumberOfSection</code>决定。Section Table包含了这些有用的信息</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:left">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Name1</td>
+<td style="text-align:left">实际上这个字段应该称为”name”,但是由于”name”是MSAM关键字，所以这个字段就成为Name1。这个字段中包含的是Section的名称，并且最大的长度是8个字节。可以使用任何名称，甚至将这个字段留为空。</td>
+</tr>
+<tr>
+<td style="text-align:center">VirtualAddress</td>
+<td style="text-align:left">Section的RVA,所以如果这个字段的值是<strong>1000h</strong>，而PE文件中FileHeader中ImageBase字段是<strong>400000h</strong>的话，这个Section将会加载到内存为<strong>401000h</strong>的地址上。</td>
+</tr>
+<tr>
+<td style="text-align:center">SizeOfRawData</td>
+<td style="text-align:left">见名知意</td>
+</tr>
+<tr>
+<td style="text-align:center">PointerToRawData</td>
+<td style="text-align:left">见名知意</td>
+</tr>
+<tr>
+<td style="text-align:center">Characteristics</td>
+<td style="text-align:left">包含了一些标志，这些标志说明了Section中是否包含可执行代码/初始化数据/未初始化数据,以及可读性。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Import-Table"><a href="#Import-Table" class="headerlink" title="Import Table"></a>Import Table</h2><p>Import Table内容比较多，重新开一个<a href=":note:66972ed0-8a98-45f5-bfb6-383a0ec9924a">笔记</a>来记录(链接暂时失效)</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zgzhong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://lisupy.github.io/2018/09/17/2018-09-17-PE文件格式/">http://lisupy.github.io/2018/09/17/2018-09-17-PE文件格式/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://lisupy.github.io" target="_blank">Pluviophile's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/PE-format/">PE format</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="https://i.imgur.com/4YlAU5b.png"><div class="post-qr-code__desc">文章看完了，请我喝杯茶？</div></div></div><nav id="pagination"><div class="next-post pull-right"><a href="/2017/04/18/2017-04-18-tinyhttpd/"><span>Tinyhttpd 代码学习</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2018 By zgzhong</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Hi, Welcome to my blog! Follow me on <a href="https://github.com/Lisupy">github</a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span><span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
