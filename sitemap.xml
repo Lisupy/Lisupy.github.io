@@ -2,72 +2,79 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://lisupy.github.io/2018/10/01/2018-10-01-Mojave%E4%BD%BF%E7%94%A8pyenv%E5%AE%89%E8%A3%85python/</loc>
+    <loc>http://lisupy.github.io/2018/11/04/2018-11-04-Rust%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
-    <lastmod>2018-10-01T12:27:22.545Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://lisupy.github.io/2017/11/01/2017-11-01-VPS%E6%90%AD%E5%BB%BA%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
-    
-    <lastmod>2018-10-01T12:24:55.603Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://lisupy.github.io/2017/08/27/2017-08-27-Python-%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
-    
-    <lastmod>2018-09-17T12:48:45.419Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://lisupy.github.io/2017/08/27/2017-08-27-Python-%E9%97%AD%E5%8C%85%E5%8F%8A%E5%85%B6%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
-    
-    <lastmod>2018-09-17T04:52:23.904Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://lisupy.github.io/2018/09/17/2018-09-17-PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/</loc>
-    
-    <lastmod>2018-09-17T02:58:08.440Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://lisupy.github.io/2017/03/12/2017-03-12-%E8%A3%85%E9%A5%B0%E5%99%A8+%E6%8F%8F%E8%BF%B0%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%8F%8F%E8%BF%B0%E5%99%A8%E7%9A%84%E5%A6%99%E7%94%A8/</loc>
-    
-    <lastmod>2018-09-17T02:39:45.654Z</lastmod>
+    <lastmod>2018-11-04T03:24:35.189Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://lisupy.github.io/2017/04/18/2017-04-18-tinyhttpd/</loc>
     
-    <lastmod>2018-09-17T02:39:28.996Z</lastmod>
+    <lastmod>2018-11-04T03:03:53.334Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lisupy.github.io/2017/08/27/2017-08-27-Python-%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
+    
+    <lastmod>2018-11-04T03:03:53.333Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lisupy.github.io/2018/10/01/2018-10-01-Mojave%E4%BD%BF%E7%94%A8pyenv%E5%AE%89%E8%A3%85python/</loc>
+    
+    <lastmod>2018-11-04T03:03:53.332Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lisupy.github.io/2018/09/17/2018-09-17-PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/</loc>
+    
+    <lastmod>2018-11-04T03:03:53.330Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lisupy.github.io/2017/11/01/2017-11-01-VPS%E6%90%AD%E5%BB%BA%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    
+    <lastmod>2018-11-04T03:03:53.328Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lisupy.github.io/2017/08/27/2017-08-27-Python-%E9%97%AD%E5%8C%85%E5%8F%8A%E5%85%B6%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
+    
+    <lastmod>2018-11-04T03:03:53.326Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://lisupy.github.io/2017/04/17/2017-04-17-telegram/</loc>
     
-    <lastmod>2018-09-17T02:39:21.128Z</lastmod>
+    <lastmod>2018-11-04T03:03:53.325Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://lisupy.github.io/2017/03/09/2017-03-09-Python%20Descriptor/</loc>
     
-    <lastmod>2018-09-17T02:39:12.178Z</lastmod>
+    <lastmod>2018-11-04T03:03:53.323Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lisupy.github.io/2017/03/12/2017-03-12-%E8%A3%85%E9%A5%B0%E5%99%A8+%E6%8F%8F%E8%BF%B0%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%8F%8F%E8%BF%B0%E5%99%A8%E7%9A%84%E5%A6%99%E7%94%A8/</loc>
+    
+    <lastmod>2018-11-04T03:03:53.322Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://lisupy.github.io/2017/03/11/2017-03-11-getattribute%20vs%20getattr/</loc>
     
-    <lastmod>2018-09-17T02:39:01.258Z</lastmod>
+    <lastmod>2018-11-04T03:03:53.319Z</lastmod>
     
   </url>
   
