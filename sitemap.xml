@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lisupy.github.io/2019/01/21/2019-01-21-Linux%E7%9A%84ulimit/</loc>
+    
+    <lastmod>2019-01-22T09:38:24.122Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://lisupy.github.io/2018/11/25/2018-11-25Rust%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E9%80%BB%E8%BE%91%E8%A7%84%E5%88%99/</loc>
     
     <lastmod>2018-11-25T08:15:59.330Z</lastmod>
